@@ -6,34 +6,41 @@ import org.testng.asserts.SoftAssert;
 import pages.HesapBilgileriAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.TestBaseRapor;
 
 
-
-public class Case5 {
+public class Case5 extends TestBaseRapor {
 
     @Test
     public void uniueEmail() {
         HesapBilgileriAutomationExercisePage autoE=new HesapBilgileriAutomationExercisePage();
         SoftAssert softAssert = new SoftAssert();
-        //   1. Tarayıcıyı başlatın
-        //   2. 'http://automationexercise.com' url'sine gidin
+        extentTest = extentReports.createTest("Register", "Register User with existing email");
+
+
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        //   3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
+        extentTest.info("Goed to url");
+
         softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
         softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
-        //   4. 'Kayıt Ol / Giriş Yap' düğmesine tıklayın
+        extentTest.info("Verified that the homepage is successfully visible");
+
         autoE.signupLogin.click();
-        //   5. 'Yeni Kullanıcı Kaydı'nı doğrulayın! görünür
+        extentTest.info("Clicked the 'Register / Login' button");
+
         softAssert.assertTrue(autoE.newUserLoginText.isDisplayed());
-        //   6. Adı ve kayıtlı e-posta adresini girin
-        //   7. 'Kaydol' düğmesini tıklayın
+        extentTest.info("Verified that the New User Registration is visible");
+
+
         Driver.actions().click(autoE.name).sendKeys(ConfigReader.getProperty("username")).sendKeys(Keys.TAB)
                 .sendKeys(ConfigReader.getProperty("usermailAE")).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
+        extentTest.info("Entered name and registered e-mail address, clicked 'Register' button");
 
-        //   8. 'E-posta Adresi zaten var!' hatasını doğrulayın. görünür
         softAssert.assertTrue(autoE.ePostaAdresiZatenVarUyarisi.isDisplayed());
+        extentTest.info("'Email Address already exists!' error confirmed");
+
         softAssert.assertAll();
     }
 

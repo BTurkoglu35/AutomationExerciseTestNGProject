@@ -7,27 +7,36 @@ import utilities.ReusableMethods;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import utilities.TestBaseRapor;
 
 
-public class Case10 {
+public class Case10 extends TestBaseRapor {
 
 
     @Test
     public void test01() {
         SoftAssert softAssert = new SoftAssert();
         ProducCartAutomationExercisePage autoE= new ProducCartAutomationExercisePage();
-        // 'http://automationexercise.com' url'sine gidin
+        extentTest = extentReports.createTest("Verify Subscription in home page", "Verify Subscription in home page");
+
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        // Ana sayfanın başarıyla görünür olduğunu doğrulayın
+        extentTest.info("Goed to url");
+
         softAssert.assertTrue(autoE.anasayfa.isDisplayed(),"anasayfa goruntulenmedi");
-        // Altbilgiye ilerleyin
+        extentTest.info("Verified that the homepage is successfully visible");
+
         ReusableMethods.jsScroll(autoE.altBilgi);
-        // 'ABONELİK' metnini doğrulayın
+        extentTest.info("Moved to footer");
+
         softAssert.assertTrue(autoE.altBilgi.isDisplayed(),"Subscription yazisi gorunur degil");
-        // Girişe e-posta adresini girin ve ok düğmesine tıklayın
+        extentTest.info("'SUBSCRIPTION' text verified");
+
         Driver.actions().click(autoE.subscriptionEmailBox).sendKeys("ertk@gmail.com",Keys.ENTER).perform();
-        // Başarı mesajını doğrulayın 'Başarıyla abone oldunuz!' görünür
+        extentTest.info("Entered the e-mail address and clicked the ok button.");
+
         softAssert.assertTrue(autoE.successSucribe.isDisplayed(),"SuccessSucribe yazisi gorunur degil");
+        extentTest.info("Success message confirmed'");
+
         softAssert.assertAll();
     }
 }

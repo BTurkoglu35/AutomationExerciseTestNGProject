@@ -1,16 +1,46 @@
 package test.exercise;
 
-public class Case21 {
-    /*
-    Test Durumu 21: Ürüne inceleme ekleyin
-1. Tarayıcıyı başlatın
-2. 'http://automationexercise.com' url'sine gidin
-3. 'Ürünler' düğmesine tıklayın
-4. Kullanıcının TÜM ÜRÜNLER sayfasına başarıyla gittiğini doğrulayın
-5. 'Ürünü Görüntüle' düğmesine tıklayın
-6. 'Yorumunuzu Yazın'ın görünür olduğunu doğrulayın
-7. Adı, e-posta adresini ve incelemeyi girin
-8. 'Gönder' düğmesini tıklayın
-9. 'İncelemeniz için teşekkür ederiz' başarı mesajını doğrulayın.
-     */
+import com.github.javafaker.Faker;
+import org.openqa.selenium.Keys;
+import org.testng.annotations.Test;
+import pages.ProducCartAutomationExercisePage;
+import utilities.ConfigReader;
+import utilities.Driver;
+import utilities.ReusableMethods;
+import utilities.TestBaseRapor;
+
+public class Case21 extends TestBaseRapor {
+    ProducCartAutomationExercisePage autoE = new ProducCartAutomationExercisePage();
+
+    @Test
+    public void test21() {
+        extentTest = extentReports.createTest("product review", "Should be able to comment product");
+        Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
+        extentTest.info("Goed to url");
+
+        autoE.products.click();
+        extentTest.info("products button clicked.");
+
+        assert autoE.allProductsText.isDisplayed();
+        extentTest.info("All products text visibility verified");
+
+        ReusableMethods.jsScroll(autoE.viewProductIlkUrun);
+        autoE.viewProductIlkUrun.click();
+        extentTest.info("view product button clicked");
+
+        ReusableMethods.jsScroll(autoE.writeYourReview);
+        assert autoE.writeYourReview.isDisplayed();
+        extentTest.info("Write your review visibility verified ");
+
+        String name = Faker.instance().name().firstName();
+        String email = Faker.instance().internet().emailAddress();
+        String text = Faker.instance().name().fullName();
+
+        Driver.actions().click(autoE.reviewNameButton).sendKeys(name, Keys.TAB).sendKeys(email, Keys.TAB).
+                sendKeys(text, Keys.TAB).sendKeys(Keys.ENTER).perform();
+        extentTest.info("Submitted: email, name, and comment");
+
+        assert autoE.thankYouReviewText.isDisplayed();
+        extentTest.info("Thank you for your text visibility verified");
+    }
 }

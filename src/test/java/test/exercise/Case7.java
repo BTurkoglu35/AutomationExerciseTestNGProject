@@ -6,25 +6,31 @@ import utilities.ConfigReader;
 import utilities.Driver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utilities.TestBaseRapor;
 
 
-public class Case7 {
+public class Case7 extends TestBaseRapor {
 
     ProducCartAutomationExercisePage autoE;
 
     @Test
     public void test1() {
         autoE = new ProducCartAutomationExercisePage();
-        //     2. 'http://automationexercise.com' url'sine gidin
+        extentTest = extentReports.createTest("Verify Test Cases Page", "Verify Test Cases Page");
+
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        //     3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
+        extentTest.info("Goed to url");
+
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
         Assert.assertEquals(expectedUrl, actualUrl);
-        //     4. 'Test Vakaları' düğmesine tıklayın
+        extentTest.info("Verified that the homepage is successfully visible");
+
         autoE.testCases.click();
-        //     5. Kullanıcının test senaryoları sayfasına başarıyla yönlendirildiğini doğrulayın
+        extentTest.info("'Test Cases' button clicked");
+
         Assert.assertTrue(autoE.testCasesTitle.isDisplayed());
+        extentTest.info("Verified that the user was successfully redirected to the test cases page");
 
     }
 }

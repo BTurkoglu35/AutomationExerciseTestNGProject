@@ -1,13 +1,17 @@
 package test.exercise;
 
+import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pages.HesapBilgileriAutomationExercisePage;
 import pages.ProducCartAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.ReusableMethods;
 
 public class Case16 {
-    ProducCartAutomationExercisePage autoE= new ProducCartAutomationExercisePage();
+    ProducCartAutomationExercisePage autoE = new ProducCartAutomationExercisePage();
+    HesapBilgileriAutomationExercisePage autoE2 = new HesapBilgileriAutomationExercisePage();
     SoftAssert softAssert = new SoftAssert();
 
     @Test
@@ -21,20 +25,35 @@ public class Case16 {
         String actualUrl = Driver.getDriver().getCurrentUrl();
         softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
         // 4. 'Kayıt Ol / Giriş Yap' düğmesini tıklayın
-
+        autoE2.signupLogin.click();
         // 5. E-postayı, şifreyi doldurun ve 'Giriş' düğmesini tıklayın
+        Driver.actions().click(autoE2.loginEmail).sendKeys(ConfigReader.getProperty("usermailAE"))
+                .sendKeys(Keys.TAB).sendKeys(ConfigReader.getProperty("userpassword"))
+                .sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
         // 6. En üstte 'Kullanıcı adı olarak oturum açıldı' seçeneğini doğrulayın
+        softAssert.assertTrue(autoE2.kullaniciAdiIleGirisYapildi.isDisplayed());
         // 7. Sepete ürün ekleyin
+        ReusableMethods.jsScroll(autoE.ilkUrunAddCart);
+        autoE.ilkUrunAddCart.click();
         // 8. 'Sepet' düğmesini tıklayın
+        autoE.viewCartButton.click();
         // 9. Sepet sayfasının görüntülendiğini doğrulayın
-        // 10. Ödemeye Devam Et'e tıklayın
+        softAssert.assertTrue(autoE.shoppingCartText.isDisplayed());
+        // 10. Ödemeye Devam Et'e tıklayın;
+        autoE.proceedToCheckoutButton.click();
         // 11. Adres Ayrıntılarını Doğrulayın ve Siparişinizi İnceleyin
+        softAssert.assertTrue(autoE.addressDetailsText.isDisplayed());
         // 12. Açıklama metin alanına açıklama girin ve 'Sipariş Ver'i tıklayın
+        ReusableMethods.jsScroll(autoE.commentButton);
+        Driver.actions().click(autoE.commentButton).sendKeys("ksdgkw").sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
         // 13. Ödeme ayrıntılarını girin: Karttaki Ad, Kart Numarası, CVC, Son Kullanma tarihi
         // 14. 'Öde ve Siparişi Onayla' düğmesine tıklayın
+        Driver.actions().click(autoE.nameOnCardButton).sendKeys("master").sendKeys(Keys.TAB)
+                .sendKeys("123654789632").sendKeys(Keys.TAB)
+                .sendKeys("124").sendKeys(Keys.TAB).sendKeys("454").sendKeys(Keys.TAB).sendKeys("2020").sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
         // 15. Başarı mesajını doğrulayın 'Siparişiniz başarıyla verildi!'
-        // 16. 'Hesabı Sil' düğmesini tıklayın
-        // 17. 'HESAP SİLİNDİ!' seçeneğini doğrulayın. ve 'Devam' düğmesini tıklayın
+        softAssert.assertTrue(autoE.orderPlacedText.isDisplayed());
+        softAssert.assertAll();
 
     }
 }

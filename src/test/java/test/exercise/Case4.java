@@ -6,40 +6,48 @@ import org.testng.asserts.SoftAssert;
 import pages.HesapBilgileriAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
+import utilities.TestBaseRapor;
 
 
-public class Case4 {
+public class Case4 extends TestBaseRapor {
 
 
     @Test
     public void test1() {
+
         HesapBilgileriAutomationExercisePage autoE = new HesapBilgileriAutomationExercisePage();
         SoftAssert softAssert = new SoftAssert();
-        // 1. Tarayıcıyı başlatın
-        // 2. 'http://automationexercise.com' url'sine gidin
+        extentTest = extentReports.createTest("Logout", "Logout User");
+
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        // 3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
+        extentTest.info("Goed to url");
+
         softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
         softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
+        extentTest.info("Verified that the homepage is successfully visible");
 
-        // 4. 'Kayıt Ol / Giriş Yap' düğmesine tıklayın
+
         autoE.signupLogin.click();
-        // 5. 'Hesabınıza giriş yapın' ifadesinin görünür olduğunu doğrulayın
+        extentTest.info("Clicked the 'Register / Login' button");
+
         softAssert.assertTrue(autoE.loginAccountText.isDisplayed());
-        // 6. Doğru e-posta adresini ve şifreyi girin
-        // 7. 'Giriş' düğmesini tıklayın
+        extentTest.info("Verified that 'Sign in to your account' is visible");
+
         Driver.actions().click(autoE.loginEmail).sendKeys(ConfigReader.getProperty("usermailAE"))
                 .sendKeys(Keys.TAB).sendKeys(ConfigReader.getProperty("userpassword"))
                 .sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
+        extentTest.info("Correct email address and password entered,'Login' button clicked");
 
-        // 8. 'Kullanıcı adı olarak oturum açıldı' ifadesinin görünür olduğunu doğrulayın
         softAssert.assertTrue(autoE.kullaniciAdiIleGirisYapildi.isDisplayed());
-        // 9. 'Çıkış' düğmesini tıklayın
+        extentTest.info("Kullanıcı adı olarak oturum açıldı' ifadesinin görünür olduğu doğrulandi");
+
         autoE.logout.click();
-        // 10. Kullanıcının oturum açma sayfasına yönlendirildiğini doğrulayın
+        extentTest.info("Clicked the 'Exit' button");
+
         softAssert.assertTrue(autoE.loginAccountText.isDisplayed());
+        extentTest.info("Verified that the user was redirected to the login page");
 
         softAssert.assertAll();
 
