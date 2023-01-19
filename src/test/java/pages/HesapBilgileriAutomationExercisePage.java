@@ -69,13 +69,21 @@ public class HesapBilgileriAutomationExercisePage {
     @FindBy (xpath = "//*[@class='fa fa-trash-o']")
     public WebElement deleteAccount;
 
-    @FindBy (xpath = "(//*[text()='Delete Account'])[2]")
-    public WebElement deleteAccountNewWindow;
+    @FindBy (xpath = "//h2[@class='title text-center']")
+    public WebElement accountDeleted;
 
     @FindBy (xpath = "//*[text()='Email Address already exist!']")
     public WebElement ePostaAdresiZatenVarUyarisi;
 
     @FindBy (xpath = "//*[@class='fa fa-lock']")
     public WebElement logout;
+
+    @FindBy(xpath = "//div[@class='btn skip']")
+    public WebElement dismisButton;
+
+    @FindBy(xpath = "//iframe[@id='aswift_2']")
+    public WebElement iframeAccount;
+
+
 
 }

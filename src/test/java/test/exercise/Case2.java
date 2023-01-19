@@ -42,7 +42,7 @@ public class Case2 extends TestBaseRapor {
         kayitliHesap.deleteAccount.click();
         extentTest.info("hesabi sil butonuna basildi");
 
-        softAssert.assertTrue(kayitliHesap.deleteAccountNewWindow.isDisplayed());
+        softAssert.assertTrue(kayitliHesap.accountDeleted.isDisplayed());
         extentTest.info("hesabi sil yazisi gorunurlugu dogrulandi");
         softAssert.assertAll();
 

@@ -161,6 +161,13 @@ public class ProducCartAutomationExercisePage extends HesapBilgileriAutomationEx
     @FindBy(xpath = "//tbody//tr[1]")
     public WebElement cartTableBodyRowOne;
 
+    @FindBy(id="address_delivery")
+    public WebElement deliveryAdress;
+
+    @FindBy(id="address_invoice")
+    public WebElement billingAdress;
+
+
 
 
 
