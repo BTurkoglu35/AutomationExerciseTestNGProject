@@ -90,10 +90,10 @@ public class Case23 extends TestBaseRapor {
         extentTest.info("adress information is  verified");
 
         autoE.deleteAccount.click();
-        extentTest.info("hesabi sil butonuna basildi");
+        extentTest.info("account delete button clicked");
 
         softAssert.assertTrue(autoE.accountDeleted.isDisplayed());
-        extentTest.info("hesabi sil yazisi gorunurlugu dogrulandi");
+        extentTest.info("account deleted text visibility verified");
         softAssert.assertAll();
 
 

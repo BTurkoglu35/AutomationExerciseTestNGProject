@@ -82,10 +82,10 @@ public class Case1 extends TestBaseRapor {
         extentTest.info("Kullanıcı adı olarak oturum açıldı dogrulandi");
 
         autoE.deleteAccount.click();
-        extentTest.info("hesabi sil butonuna basildi");
+        extentTest.info("account delete button clicked");
 
         softAssert.assertTrue(autoE.accountDeleted.isDisplayed());
-        extentTest.info("hesabi sil yazisi gorunurlugu dogrulandi");
+        extentTest.info("account deleted text visibility verified");
         softAssert.assertAll();
 
 
