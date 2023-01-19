@@ -3,7 +3,7 @@ package test.exercise;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.HesapBilgileriAutomationExercisePage;
+import pages.AccountInformationAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.TestBaseRapor;
@@ -12,8 +12,8 @@ import utilities.TestBaseRapor;
 public class Case5 extends TestBaseRapor {
 
     @Test
-    public void uniueEmail() {
-        HesapBilgileriAutomationExercisePage autoE=new HesapBilgileriAutomationExercisePage();
+    public void uniqeEmail() {
+        AccountInformationAutomationExercisePage autoE=new AccountInformationAutomationExercisePage();
         SoftAssert softAssert = new SoftAssert();
         extentTest = extentReports.createTest("Register", "Register User with existing email");
 
@@ -42,6 +42,7 @@ public class Case5 extends TestBaseRapor {
         extentTest.info("'Email Address already exists!' error confirmed");
 
         softAssert.assertAll();
+        Driver.closeDriver();
     }
 
 

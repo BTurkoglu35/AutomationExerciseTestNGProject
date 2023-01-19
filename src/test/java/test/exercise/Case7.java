@@ -32,5 +32,8 @@ public class Case7 extends TestBaseRapor {
         Assert.assertTrue(autoE.testCasesTitle.isDisplayed());
         extentTest.info("Verified that the user was successfully redirected to the test cases page");
 
+
+        Driver.closeDriver();
+
     }
 }

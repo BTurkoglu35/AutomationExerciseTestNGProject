@@ -7,29 +7,40 @@ import pages.ProducCartAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
+import utilities.TestBaseRapor;
 
-public class Case11 {
+public class Case11 extends TestBaseRapor {
     ProducCartAutomationExercisePage autoE;
 
     @Test
     public void sepetSayfasindaAbonelikDogrulama() {
         autoE = new ProducCartAutomationExercisePage();
-        // 1. Tarayıcıyı başlatın
-        // 2. 'http://automationexercise.com' url'sine gidin
+        extentTest = extentReports.createTest("subscription", "You have successfully subscribed");
+
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        // 3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
+        extentTest.info("Goed to Url");
+
+
         String actuaUrl = Driver.getDriver().getCurrentUrl();
         String expectedUrl = "https://www.automationexercise.com/";
         Assert.assertEquals(expectedUrl, actuaUrl);
-        // 4. 'Sepet' düğmesini tıklayın
+        extentTest.info("Homepage displayed verified");
+
         autoE.cart.click();
-        // 5. Altbilgiye ilerleyin
+        extentTest.info("cart button clicked");
+
+
         ReusableMethods.jsScroll(autoE.altBilgi);
-        // 6. 'ABONELİK' metnini doğrulayın
+
+
         Assert.assertTrue(autoE.altBilgi.isDisplayed());
-        // 7. Girişe e-posta adresini girin ve ok düğmesine tıklayın
+        extentTest.info("subscription text verified");
+
         autoE.subscriptionEmailBox.sendKeys("test@gmail.com", Keys.ENTER);
-        // 8. Başarı mesajını doğrulayın 'Başarıyla abone oldunuz!' görünür
+
         Assert.assertTrue(autoE.successSucribe.isDisplayed());
+        extentTest.info("You have successfully subscribed text displayed verified");
+
+        Driver.closeDriver();
     }
 }

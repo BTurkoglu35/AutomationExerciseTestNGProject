@@ -12,8 +12,6 @@ public class Case12 {
     public void SepeteUrunEklemeTest() {
         SoftAssert softAssert = new SoftAssert();
         ProducCartAutomationExercisePage autoE= new ProducCartAutomationExercisePage();
-        //   1. Tarayıcıyı başlatın
-        //   2. 'http://automationexercise.com' url'sine gidin
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
         // 3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
         softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");

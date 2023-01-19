@@ -3,7 +3,7 @@ package test.exercise;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.HesapBilgileriAutomationExercisePage;
+import pages.AccountInformationAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.TestBaseRapor;
@@ -15,7 +15,7 @@ public class Case4 extends TestBaseRapor {
     @Test
     public void test1() {
 
-        HesapBilgileriAutomationExercisePage autoE = new HesapBilgileriAutomationExercisePage();
+        AccountInformationAutomationExercisePage autoE = new AccountInformationAutomationExercisePage();
         SoftAssert softAssert = new SoftAssert();
         extentTest = extentReports.createTest("Logout", "Logout User");
 
@@ -50,6 +50,7 @@ public class Case4 extends TestBaseRapor {
         extentTest.info("Verified that the user was redirected to the login page");
 
         softAssert.assertAll();
+        Driver.closeDriver();
 
     }
 

@@ -3,7 +3,6 @@ package test.exercise;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.HesapBilgileriAutomationExercisePage;
 import pages.ProducCartAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
@@ -62,7 +61,7 @@ public class Case23 extends TestBaseRapor {
                 .sendKeys(Driver.faker().address().country()).sendKeys(Keys.TAB).sendKeys(Driver.faker().address().zipCode())
                 .sendKeys(Keys.TAB).sendKeys(Driver.faker().phoneNumber().phoneNumber()).sendKeys(Keys.TAB)
                 .sendKeys(Keys.ENTER).perform();
-        extentTest.info(" information were entered to create an  account");
+        extentTest.info(" information  entered to create an  account");
 
         softAssert.assertTrue(autoE.accountCreated.isDisplayed());
         extentTest.info("account created text  visibility verified ");

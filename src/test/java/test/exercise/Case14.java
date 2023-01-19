@@ -3,7 +3,7 @@ package test.exercise;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.HesapBilgileriAutomationExercisePage;
+import pages.AccountInformationAutomationExercisePage;
 import pages.ProducCartAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
@@ -11,7 +11,7 @@ import utilities.ReusableMethods;
 
 public class Case14 {
     ProducCartAutomationExercisePage productCartPage = new ProducCartAutomationExercisePage();
-    HesapBilgileriAutomationExercisePage hesapBilgileriPage=new HesapBilgileriAutomationExercisePage();
+    AccountInformationAutomationExercisePage hesapBilgileriPage=new AccountInformationAutomationExercisePage();
     SoftAssert softAssert = new SoftAssert();
 
     @Test

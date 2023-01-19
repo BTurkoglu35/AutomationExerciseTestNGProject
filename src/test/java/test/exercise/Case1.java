@@ -1,7 +1,7 @@
 package test.exercise;
 
 
-import pages.HesapBilgileriAutomationExercisePage;
+import pages.AccountInformationAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
@@ -12,36 +12,36 @@ import org.testng.asserts.SoftAssert;
 
 public class Case1 extends TestBaseRapor {
 
-    HesapBilgileriAutomationExercisePage autoE;
+    AccountInformationAutomationExercisePage autoE;
 
     @Test
     public void test01() throws InterruptedException {
-        extentTest = extentReports.createTest("Hesap olustur ve hesap sil", "Hesap olusturulmali ve  basarili bir sekilde silinmeli");
-        autoE = new HesapBilgileriAutomationExercisePage();
+        extentTest = extentReports.createTest("Create account and delete account", "Account must be created and deleted successfully");
+        autoE = new AccountInformationAutomationExercisePage();
         SoftAssert softAssert = new SoftAssert();
 
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        extentTest.info("automationexercise sayfasina giris yapildi");
+        extentTest.info("went to  automationexercise url ");
 
-        softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");
+        softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "homepage not displayed");
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
-        softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
-        extentTest.info("anasayfa gorunurlugu dogrulandi");
+        softAssert.assertEquals(expectedUrl, actualUrl, "homepage not displayed");
+        extentTest.info("homepage visibility verified");
 
         autoE.signupLogin.click();
-        extentTest.info("kayıt Ol / Giriş Yap butonuna basildi");
+        extentTest.info("signin /login button clicked");
 
         softAssert.assertTrue(autoE.newUserLoginText.isDisplayed());
-        extentTest.info("Yeni Kullanıcı Kaydı dogrulandi");
+        extentTest.info("New user record verified");
         String email = Driver.faker().internet().emailAddress();
         String name = Driver.faker().name().fullName();
         Driver.actions().click(autoE.name).sendKeys(name).sendKeys(Keys.TAB)
                 .sendKeys(email).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
-        extentTest.info("adi ve soyadi bilgileri girildi kaydet tusuna basildi");
+        extentTest.info("Firstname and lastname information was entered , save button clicked");
 
         softAssert.assertTrue(autoE.enterAccountInformation.isDisplayed());
-        extentTest.info("Hesap bilgilerini girin ifadesi gorunur olduğunu doğrulandi");
+        extentTest.info("Verified that Enter account information is visible ");
 
 
         Driver.actions().click(autoE.mrsTitle).sendKeys(Keys.TAB)
@@ -64,14 +64,14 @@ public class Case1 extends TestBaseRapor {
                 .sendKeys(Driver.faker().address().country()).sendKeys(Keys.TAB).sendKeys(Driver.faker().address().zipCode())
                 .sendKeys(Keys.TAB).sendKeys(Driver.faker().phoneNumber().phoneNumber()).sendKeys(Keys.TAB)
                 .sendKeys(Keys.ENTER).perform();
-        extentTest.info("Hesap olusturmak icin bilgiler girildi");
+        extentTest.info("Information  entered to  create an account");
 
 
         softAssert.assertTrue(autoE.accountCreated.isDisplayed());
-        extentTest.info("hesap olusturuldu yazisi gorunurlugu dogrulandi");
+        extentTest.info("account created text visibility verified");
 
         autoE.continueAccountCreated.click();
-        extentTest.info("continue butonuna basildi");
+        extentTest.info("continue button clicked");
 
         Driver.getDriver().switchTo().frame(autoE.iframeAccount);
         autoE.dismisButton.click();
@@ -79,7 +79,7 @@ public class Case1 extends TestBaseRapor {
 
 
         softAssert.assertTrue(autoE.kullaniciAdiIleGirisYapildi.isDisplayed());
-        extentTest.info("Kullanıcı adı olarak oturum açıldı dogrulandi");
+        extentTest.info("Signed in as username verified");
 
         autoE.deleteAccount.click();
         extentTest.info("account delete button clicked");
@@ -88,6 +88,7 @@ public class Case1 extends TestBaseRapor {
         extentTest.info("account deleted text visibility verified");
         softAssert.assertAll();
 
+        Driver.closeDriver();
 
     }
 }

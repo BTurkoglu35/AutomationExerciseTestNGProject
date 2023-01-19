@@ -25,6 +25,11 @@ public class Case9 extends TestBaseRapor {
         autoE.products.click();
         extentTest.info(" Products button clicked");
 
+        Driver.getDriver().switchTo().frame(autoE.iframeProduct);
+        autoE.dismisButton.click();
+        Driver.getDriver().switchTo().defaultContent();
+
+
         softAssert.assertTrue(autoE.allProductsText.isDisplayed(), "tum urunler ssayfasina gidilemedi");
         extentTest.info("Verified that user successfully navigated to ALL PRODUCTS page");
 

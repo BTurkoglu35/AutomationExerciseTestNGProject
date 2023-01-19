@@ -5,8 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-public class BizeUlasinPage {
-    public BizeUlasinPage(){
+public class contactuspage {
+    public contactuspage(){
         PageFactory.initElements(Driver.getDriver(),this);
     }
     @FindBy (xpath = "//*[@class='fa fa-envelope']")

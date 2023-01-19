@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class ProducCartAutomationExercisePage extends HesapBilgileriAutomationExercisePage {
+public class ProducCartAutomationExercisePage extends AccountInformationAutomationExercisePage {
     public ProducCartAutomationExercisePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }

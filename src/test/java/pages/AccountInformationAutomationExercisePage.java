@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class HesapBilgileriAutomationExercisePage {
-    public HesapBilgileriAutomationExercisePage(){
+public class AccountInformationAutomationExercisePage {
+    public AccountInformationAutomationExercisePage(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
     @FindBy(xpath="(//html[@lang='en'])")
@@ -78,11 +78,14 @@ public class HesapBilgileriAutomationExercisePage {
     @FindBy (xpath = "//*[@class='fa fa-lock']")
     public WebElement logout;
 
-    @FindBy(xpath = "//div[@class='btn skip']")
+    @FindBy(xpath = "//div[@id='dismiss-button']")
     public WebElement dismisButton;
 
     @FindBy(xpath = "//iframe[@id='aswift_2']")
     public WebElement iframeAccount;
+
+    @FindBy(xpath = "//iframe[@id='aswift_5']")
+    public WebElement iframeProduct;
 
 
 

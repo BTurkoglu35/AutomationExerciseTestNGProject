@@ -3,43 +3,45 @@ package test.exercise;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.HesapBilgileriAutomationExercisePage;
+import pages.AccountInformationAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.TestBaseRapor;
 
 public class Case3 extends TestBaseRapor {
-    HesapBilgileriAutomationExercisePage autoE;
+    AccountInformationAutomationExercisePage autoE;
     @Test
-    public void negativeLogin() throws InterruptedException {
-        autoE=new HesapBilgileriAutomationExercisePage();
+    public void WrongLogin() throws InterruptedException {
+        autoE=new AccountInformationAutomationExercisePage();
         SoftAssert softAssert = new SoftAssert();
-        extentTest= extentReports.createTest("negativeLogin","yanlis kullanici bilgileri ile giris yapilamadigini dogrulama");
+        extentTest= extentReports.createTest("WrongLogin","Verify that login cannot be made with incorrect user information");
 
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
 
-        softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");
+        softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "homepage not displayed");
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
-        softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
-        extentTest.info("anasayfa gorunurlugu dogrulandi");
+        softAssert.assertEquals(expectedUrl, actualUrl, "homepage not displayed");
+        extentTest.info("Homepage visibility verified");
 
 
         autoE.signupLogin.click();
-        extentTest.info("kayıt Ol / Giriş Yap dugmesi tiklandi");
+        extentTest.info("Signin/LogIn button clicked");
 
         softAssert.assertTrue(autoE.loginAccountText.isDisplayed());
-        extentTest.info("hesabiniza girirs yapin yazisinin gorunurlugu dogrulandi");
+        extentTest.info("Login your account text visibilty verified");
 
 
         Driver.actions().click(autoE.loginEmail).sendKeys(ConfigReader.getProperty("wrongemail"))
                 .sendKeys(Keys.TAB).sendKeys(ConfigReader.getProperty("wrongPassword"))
                 .sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
-        extentTest.info("yanlis kullanici bilgileri girildi ve giris yap butonuna basildi");
+        extentTest.info("Wrong user information was entered and the login button was pressed");
 
         softAssert.assertTrue(autoE.negativeLoginText.isDisplayed());
         softAssert.assertAll();
-        extentTest.info("E-postanız veya şifreniz yanlış! yazisinin gorunurlugu dogrulandi");
+        extentTest.info("Your email or password is incorrect! text visibility confirmed");
+
+        Driver.closeDriver();
 
     }
 }
