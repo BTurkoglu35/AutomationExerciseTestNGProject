@@ -6,33 +6,45 @@ import pages.ProducCartAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
+import utilities.TestBaseRapor;
 
-public class Case12 {
+public class Case12 extends TestBaseRapor {
     @Test
     public void SepeteUrunEklemeTest() {
         SoftAssert softAssert = new SoftAssert();
         ProducCartAutomationExercisePage autoE= new ProducCartAutomationExercisePage();
+        extentTest = extentReports.createTest("Add Products in Cart", "User should be able to add items to cart");
+
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        // 3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
-        softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");
+        extentTest.info("went to url");
+
+        softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "homepage not displayed");
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
-        softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
-        //   4. 'Ürünler' düğmesini tıklayın
+        softAssert.assertEquals(expectedUrl, actualUrl, "homepage not displayed");
+
         autoE.products.click();
-        //   5. İlk ürünün üzerine gelin ve 'Sepete ekle'yi tıklayın
+        extentTest.info("Products button clicked");
+
+
         ReusableMethods.jsScroll(autoE.ilkUrunIsim);
        Driver.actions().moveToElement(autoE.ilkUrunIsim).click(autoE.ilkUrunAddCart).perform();
-        //   6. 'Alışverişe Devam Et' düğmesini tıklayın
+       extentTest.info("first item added to cart");
+
         autoE.continueShoppingButton.click();
-        //   7. Fareyi ikinci ürünün üzerine getirin ve 'Sepete ekle'yi tıklayın
+        extentTest.info("Continue Shopping Button clicked");
+
         Driver.actions().moveToElement(autoE.ikinciUrunIsim).click(autoE.ikinciUrunAddCart).perform();
-        //   8. 'Sepeti Görüntüle' düğmesini tıklayın
+        extentTest.info("second item added to cart");
+
         autoE.viewCartButton.click();
-        //   9. Her iki ürünün de Sepete eklendiğini doğrulayın
+        extentTest.info("View cart button clicked ");
+
         softAssert.assertTrue(autoE.ilkUrunIsim.isDisplayed());
         softAssert.assertTrue(autoE.ikinciUrunIsim.isDisplayed());
-        //   10. Fiyatlarını, miktarını ve toplam fiyatını doğrulayın
+        extentTest.info("Confirmed that both items have been added to cart");
+
+        softAssert.assertAll();
 
 
 

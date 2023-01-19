@@ -3,81 +3,120 @@ package test.exercise;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.AccountInformationAutomationExercisePage;
 import pages.ProducCartAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
+import utilities.TestBaseRapor;
 
-public class Case14 {
-    ProducCartAutomationExercisePage productCartPage = new ProducCartAutomationExercisePage();
-    AccountInformationAutomationExercisePage hesapBilgileriPage=new AccountInformationAutomationExercisePage();
-    SoftAssert softAssert = new SoftAssert();
+public class Case14 extends TestBaseRapor {
+    ProducCartAutomationExercisePage autoE = new ProducCartAutomationExercisePage();
 
     @Test
     public void siparisVerOdemeYarkenKaydolTest() throws InterruptedException {
+        extentTest = extentReports.createTest("Add Products in Cart", "User should be able to add items to cart");
+        SoftAssert softAssert = new SoftAssert();
 
-        //1. Tarayıcıyı başlatın
-        //2. 'http://automationexercise.com' url'sine gidin
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        //3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
-        softAssert.assertTrue(productCartPage.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");
+        extentTest.info("Went to Url");
+
+        softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "Homepage not displayed");
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
-        softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
-        //4. Sepete ürün ekleyin
-        ReusableMethods.jsScroll(productCartPage.ilkUrunAddCart);
-        productCartPage.ilkUrunAddCart.click();
-        //5. 'Sepet'(viewCartButton) düğmesini tıklayın
-        productCartPage.viewCartButton.click();
-        //6. Sepet sayfasının(shoppingCartText) görüntülendiğini doğrulayın
-        softAssert.assertTrue(productCartPage.shoppingCartText.isDisplayed());
-        //7. Ödemeye Devam Et'(proceedToCheckoutButton) e tıklayın
-        productCartPage.proceedToCheckoutButton.click();
-        //8. 'Kaydol / Giriş Yap'(registerLoginButton) düğmesine tıklayın
-        productCartPage.registerLoginButton.click();
-        //9. Kayıt bölümündeki tüm ayrıntıları doldurun ve hesap oluşturun
+        softAssert.assertEquals(expectedUrl, actualUrl, "Homepage not displayed");
+
+        ReusableMethods.jsScroll(autoE.ilkUrunAddCart);
+        autoE.ilkUrunAddCart.click();
+        extentTest.info("item added to cart");
+
+        autoE.viewCartButton.click();
+        extentTest.info("View cart button clicked");
+
+        softAssert.assertTrue(autoE.shoppingCartText.isDisplayed());
+        extentTest.info("Shopping cart text text visibilty verified");
+
+        autoE.proceedToCheckoutButton.click();
+        extentTest.info("Proceed To Checkout Button clicked");
+
+        autoE.registerLoginButton.click();
+        extentTest.info("Register/Login button clicked");
+
         String email = Driver.faker().internet().emailAddress();
         String name = Driver.faker().name().fullName();
-        Driver.actions().click(hesapBilgileriPage.name).sendKeys(name).sendKeys(Keys.TAB)
+        Driver.actions().click(autoE.name).sendKeys(name).sendKeys(Keys.TAB)
                 .sendKeys(email).sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
+        extentTest.info("Firstname and lastname information was entered , save button clicked");
 
-        // Doldurma ayrıntıları: Unvan, Ad, E-posta, Şifre, Doğum tarihi
-        Driver.actions().click(hesapBilgileriPage.mrsTitle).sendKeys(Keys.TAB)
-                .sendKeys(name).sendKeys(Keys.TAB).sendKeys(email).sendKeys(Keys.TAB)
-                .sendKeys(Driver.faker().internet().password()).sendKeys(Keys.TAB).perform();
-        Driver.select(hesapBilgileriPage.days).selectByValue("4");
-        Driver.select(hesapBilgileriPage.months).selectByVisibleText("April");
-        Driver.select(hesapBilgileriPage.years).selectByVisibleText("1993");
-        //10. 'Bültenimize kaydolun!' onay kutusunu seçin.
-        //11. 'Ortaklarımızdan özel teklifler alın!' onay kutusunu seçin.
-        //12. Doldurma ayrıntıları: Ad, Soyadı, Şirket, Adres, Adres2, Ülke, Eyalet, Şehir, Posta Kodu, Cep Numarası
-        //13. 'Hesap Oluştur düğmesini' tıklayın
+        softAssert.assertTrue(autoE.enterAccountInformation.isDisplayed());
+        extentTest.info("Verified that Enter account information is visible ");
+
+        Driver.actions().click(autoE.mrsTitle).sendKeys(Keys.TAB)
+                .sendKeys(name).sendKeys(Keys.TAB)
+                .sendKeys(Driver.faker().internet().password()).perform();
+        Driver.select(autoE.days).selectByValue("4");
+        Driver.select(autoE.months).selectByVisibleText("April");
+        Driver.select(autoE.years).selectByVisibleText("1993");
+
         Thread.sleep(2000);
-        Driver.actions().click(hesapBilgileriPage.bultenimizeKaydolun).sendKeys(Keys.TAB).sendKeys(Keys.ENTER)
+        String adress="Driver.faker().address().fullAddress()";
+        ReusableMethods.jsScroll(autoE.bultenimizeKaydolun);
+        Driver.actions().click(autoE.bultenimizeKaydolun).sendKeys(Keys.TAB).sendKeys(Keys.SPACE).sendKeys(Keys.TAB)
                 .sendKeys(Driver.faker().name().firstName()).sendKeys(Keys.TAB).sendKeys(Driver.faker().name().lastName())
-                .sendKeys(Keys.TAB).sendKeys("trendyol").sendKeys(Keys.TAB).sendKeys(Driver.faker().address().fullAddress())
-                .sendKeys(Keys.TAB).sendKeys(Driver.faker().address().fullAddress()).sendKeys(Keys.TAB).perform();
-        Driver.select(hesapBilgileriPage.country).selectByVisibleText("Singapore");
-        Driver.actions().click(hesapBilgileriPage.state).sendKeys(Driver.faker().address().state()).sendKeys(Keys.TAB)
+                .sendKeys(Keys.TAB).sendKeys("trendyol").sendKeys(Keys.TAB).sendKeys(adress)
+                .sendKeys(Keys.TAB).sendKeys(Driver.faker().address().fullAddress()).perform();
+        Driver.select(autoE.country).selectByVisibleText("Singapore");
+
+        ReusableMethods.jsScroll(autoE.state);
+        Driver.actions().click(autoE.state).sendKeys(Driver.faker().address().state()).sendKeys(Keys.TAB)
                 .sendKeys(Driver.faker().address().country()).sendKeys(Keys.TAB).sendKeys(Driver.faker().address().zipCode())
                 .sendKeys(Keys.TAB).sendKeys(Driver.faker().phoneNumber().phoneNumber()).sendKeys(Keys.TAB)
                 .sendKeys(Keys.ENTER).perform();
+        extentTest.info("Information  entered to  create an account");
 
-        //10. 'HESAP OLUŞTURULDU!' seçeneğini doğrulayın. ve 'Devam' düğmesini tıklayın
-        softAssert.assertTrue(hesapBilgileriPage.accountCreated.isDisplayed());
-        hesapBilgileriPage.continueAccountCreated.click();
-        //11. En üstte 'Kullanıcı adı olarak oturum açıldı' seçeneğini doğrulayın
-        softAssert.assertTrue(hesapBilgileriPage.kullaniciAdiIleGirisYapildi.isDisplayed());
-        //12.'Sepet' düğmesini tıklayın
-        //13. 'Ödemeye Devam Et' düğmesini tıklayın
-        //14. Adres Ayrıntılarını Doğrulayın ve Siparişinizi İnceleyin
-        //15. Yorum metni alanına açıklama girin ve 'Sipariş Ver'i tıklayın
-        //16. Ödeme ayrıntılarını girin: Karttaki Ad, Kart Numarası, CVC, Son Kullanma tarihi
-        //17. 'Öde ve Siparişi Onayla' düğmesine tıklayın
-        //18. Başarı mesajını doğrulayın 'Siparişiniz başarıyla verildi!'
-        //19. 'Hesabı Sil' düğmesini tıklayın
-        //20. 'HESAP SİLİNDİ!' seçeneğini doğrulayın. ve 'Devam' düğmesini tıklayın
+        softAssert.assertTrue(autoE.accountCreated.isDisplayed());
+        extentTest.info("account created text visibility verified");
+
+        autoE.continueAccountCreated.click();
+        extentTest.info("continue button clicked");
+
+        Driver.getDriver().switchTo().frame(autoE.iframeAccount);
+        autoE.dismisButton.click();
+        Driver.getDriver().switchTo().defaultContent();
+
+        softAssert.assertTrue(autoE.kullaniciAdiIleGirisYapildi.isDisplayed());
+        extentTest.info("Confirmed that the username is displayed");
+
+        autoE.cart.click();
+        extentTest.info("Cart button clicked");
+
+        autoE.proceedToCheckoutButton.click();
+        extentTest.info("Proceed to checkout button clicked");
+
+        assert autoE.deliveryAdress.getText().contains(adress);
+        extentTest.info("Adress verified");
+
+        ReusableMethods.jsScroll(autoE.paymentpagecomments);
+        autoE.paymentpagecomments.sendKeys(Driver.faker().toString());
+        autoE.placeOrderButton.click();
+        extentTest.info("Place order button clicked");
+
+        autoE.nameOnCardButton.sendKeys(Driver.faker().name().fullName());
+        Driver.actions().sendKeys(Keys.TAB).sendKeys(Driver.faker().finance().creditCard()).sendKeys(Keys.TAB).sendKeys("12").sendKeys(Keys.TAB)
+                .sendKeys("1452").sendKeys(Keys.TAB).sendKeys("47").sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
+
+
+        assert autoE.orderPlacedText.isDisplayed();
+        extentTest.info("Order placed text displayed verified");
+
+        autoE.deleteAccount.click();
+        extentTest.info("Account Delete button tiklandi");
+
+        assert autoE.accountDeletedText.isDisplayed();
+        extentTest.info("Account Delete Text visibility verified");
+
+        softAssert.assertAll();
+
+        Driver.closeDriver();
 
     }
 }

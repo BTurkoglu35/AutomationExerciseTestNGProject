@@ -120,8 +120,6 @@ public class ProducCartAutomationExercisePage extends AccountInformationAutomati
     @FindBy(xpath = "//*[@class='form-control']")
     public WebElement nameOnCardButton;
 
-    @FindBy(xpath = "//*[text()='Congratulations! Your order has been confirmed!']")
-    public WebElement orderPlacedText;
 
     @FindBy(xpath = "//*[@class='cart_quantity_delete']")
     public List<WebElement> cartDeleteButton;
@@ -167,6 +165,14 @@ public class ProducCartAutomationExercisePage extends AccountInformationAutomati
     @FindBy(id="address_invoice")
     public WebElement billingAdress;
 
+    @FindBy(xpath = "//*[@class='form-control']")
+    public WebElement paymentpagecomments;
+
+    @FindBy(xpath = "//*[@class='form-control']")
+    public WebElement placeOrderButton;
+
+    @FindBy(xpath = "//h2[@class='title text-center']")
+    public WebElement orderPlacedText;
 
 
 

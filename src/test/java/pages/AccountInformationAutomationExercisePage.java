@@ -70,7 +70,7 @@ public class AccountInformationAutomationExercisePage {
     public WebElement deleteAccount;
 
     @FindBy (xpath = "//h2[@class='title text-center']")
-    public WebElement accountDeleted;
+    public WebElement accountDeletedText;
 
     @FindBy (xpath = "//*[text()='Email Address already exist!']")
     public WebElement ePostaAdresiZatenVarUyarisi;

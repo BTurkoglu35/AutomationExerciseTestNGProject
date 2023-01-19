@@ -91,7 +91,7 @@ public class Case23 extends TestBaseRapor {
         autoE.deleteAccount.click();
         extentTest.info("account delete button clicked");
 
-        softAssert.assertTrue(autoE.accountDeleted.isDisplayed());
+        softAssert.assertTrue(autoE.accountDeletedText.isDisplayed());
         extentTest.info("account deleted text visibility verified");
         softAssert.assertAll();
 
