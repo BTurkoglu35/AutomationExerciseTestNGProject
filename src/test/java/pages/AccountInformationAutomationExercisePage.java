@@ -80,10 +80,14 @@ public class AccountInformationAutomationExercisePage {
 
     @FindBy(xpath = "//div[@id='dismiss-button']")
     public WebElement dismisButton;
-
+    //*[@id='dismiss-button']
     @FindBy(xpath = "//iframe[@id='aswift_2']")
     public WebElement iframeAccount;
+    //*[@id='ad_iframe']
 
+    @FindBy(xpath = " //*[@id='ad_iframe']")
+    public WebElement iframeAccount2;
+    ////iframe[@id='aswift_2']
     @FindBy(xpath = "//iframe[@id='aswift_5']")
     public WebElement iframeProduct;
 

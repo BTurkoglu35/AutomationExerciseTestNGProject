@@ -1,5 +1,6 @@
 package pages;
 
+import org.bouncycastle.jcajce.provider.asymmetric.X509;
 import utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -168,11 +169,42 @@ public class ProducCartAutomationExercisePage extends AccountInformationAutomati
     @FindBy(xpath = "//*[@class='form-control']")
     public WebElement paymentpagecomments;
 
-    @FindBy(xpath = "//*[@class='form-control']")
+    @FindBy(xpath = "//*[text()='Place Order']")
     public WebElement placeOrderButton;
 
-    @FindBy(xpath = "//h2[@class='title text-center']")
+    @FindBy(xpath = "//*[@class='form-control']")
     public WebElement orderPlacedText;
+
+    @FindBy(xpath = "//*[text()='Register / Login']")
+    public WebElement checkoutRegisterLogin;
+
+    @FindBy(xpath = "//input[@name='name_on_card']")
+    public WebElement cardNameBox;
+
+    @FindBy(xpath = "//input[@name='card_number']")
+    public WebElement cardNumberBox;
+
+    @FindBy(xpath = "//input[@name='cvc']")
+    public WebElement cvcBox;
+
+    @FindBy(xpath = "//input[@name='expiry_month']")
+    public WebElement expirationBox;
+
+    @FindBy(xpath = "//input[@name='expiry_year']")
+    public WebElement cardYearsBox;
+
+    @FindBy(xpath = "//*[@id='submit']")
+    public WebElement playAndConfirmOrderButton;
+
+    @FindBy(xpath = "//*[text()='Order Placed!']")
+    public WebElement orderPlacedSuccesfullText;
+
+    @FindBy(xpath = "//*[text()='Download Invoice']")
+    public WebElement downloadInvoiceButton;
+
+    @FindBy(xpath = "//*[text()='Continue']")
+    public WebElement continueButtonInvoicePage;
+
 
 
 
