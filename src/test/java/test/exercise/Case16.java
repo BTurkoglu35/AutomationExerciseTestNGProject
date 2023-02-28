@@ -8,51 +8,58 @@ import pages.ProducCartAutomationExercisePage;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
+import utilities.TestBaseRapor;
 
-public class Case16 {
+public class Case16 extends TestBaseRapor {
     ProducCartAutomationExercisePage autoE = new ProducCartAutomationExercisePage();
     AccountInformationAutomationExercisePage autoE2 = new AccountInformationAutomationExercisePage();
     SoftAssert softAssert = new SoftAssert();
 
     @Test
-    public void sipraisVer() {
-        // 1. Tarayıcıyı başlatın
-        // 2. 'http://automationexercise.com' url'sine gidin
+    public void placeOrder() {
+        extentTest = extentReports.createTest(" Place Order: Login before Checkout", "User must be a member without paying");
+
         Driver.getDriver().get(ConfigReader.getProperty("automationexerciseUrl"));
-        //    3. Ana sayfanın başarıyla görünür olduğunu doğrulayın
+        extentTest.info("Goed to url");
+
         softAssert.assertTrue(autoE.anasayfa.isDisplayed(), "anasayfa goruntulenmedi");
         String expectedUrl = "https://www.automationexercise.com/";
         String actualUrl = Driver.getDriver().getCurrentUrl();
         softAssert.assertEquals(expectedUrl, actualUrl, "anasayfa goruntulenmedi");
-        // 4. 'Kayıt Ol / Giriş Yap' düğmesini tıklayın
+        extentTest.info("Homepage is displayed");
+
         autoE2.signupLogin.click();
-        // 5. E-postayı, şifreyi doldurun ve 'Giriş' düğmesini tıklayın
+
         Driver.actions().click(autoE2.loginEmail).sendKeys(ConfigReader.getProperty("usermailAE"))
                 .sendKeys(Keys.TAB).sendKeys(ConfigReader.getProperty("userpassword"))
                 .sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
-        // 6. En üstte 'Kullanıcı adı olarak oturum açıldı' seçeneğini doğrulayın
+
         softAssert.assertTrue(autoE2.kullaniciAdiIleGirisYapildi.isDisplayed());
-        // 7. Sepete ürün ekleyin
+        extentTest.info("User name verified");
+
         ReusableMethods.jsScroll(autoE.ilkUrunAddCart);
         autoE.ilkUrunAddCart.click();
-        // 8. 'Sepet' düğmesini tıklayın
+        extentTest.info("Item added to cart");
+
         autoE.viewCartButton.click();
-        // 9. Sepet sayfasının görüntülendiğini doğrulayın
         softAssert.assertTrue(autoE.shoppingCartText.isDisplayed());
-        // 10. Ödemeye Devam Et'e tıklayın;
+        extentTest.info("Cart page is displayed");
+
+
         autoE.proceedToCheckoutButton.click();
-        // 11. Adres Ayrıntılarını Doğrulayın ve Siparişinizi İnceleyin
+
         softAssert.assertTrue(autoE.addressDetailsText.isDisplayed());
-        // 12. Açıklama metin alanına açıklama girin ve 'Sipariş Ver'i tıklayın
+        extentTest.info("Adress detail is verified");
+
         ReusableMethods.jsScroll(autoE.commentButton);
         Driver.actions().click(autoE.commentButton).sendKeys("ksdgkw").sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
-        // 13. Ödeme ayrıntılarını girin: Karttaki Ad, Kart Numarası, CVC, Son Kullanma tarihi
-        // 14. 'Öde ve Siparişi Onayla' düğmesine tıklayın
+
         Driver.actions().click(autoE.nameOnCardButton).sendKeys("master").sendKeys(Keys.TAB)
                 .sendKeys("123654789632").sendKeys(Keys.TAB)
                 .sendKeys("124").sendKeys(Keys.TAB).sendKeys("454").sendKeys(Keys.TAB).sendKeys("2020").sendKeys(Keys.TAB).sendKeys(Keys.ENTER).perform();
-        // 15. Başarı mesajını doğrulayın 'Siparişiniz başarıyla verildi!'
+
         softAssert.assertTrue(autoE.orderPlacedText.isDisplayed());
+        extentTest.info("'Your order has been successfully placed' text is verified");
         softAssert.assertAll();
 
     }
