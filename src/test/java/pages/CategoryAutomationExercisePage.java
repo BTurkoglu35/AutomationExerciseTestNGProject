@@ -5,10 +5,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 public class CategoryAutomationExercisePage {
+
+
     public CategoryAutomationExercisePage(){
         PageFactory.initElements(Driver.getDriver(), this);
     }
@@ -26,13 +27,13 @@ public class CategoryAutomationExercisePage {
     public WebElement womenDressProductstText;
 
     @FindBy (xpath = "(//*[@class='badge pull-right'])[2]")
-    public WebElement men;
+    public WebElement man;
 
     @FindBy (xpath = "//*[text()='Tshirts ']")
-    public WebElement menTshirts;
+    public WebElement manTshirts;
 
     @FindBy (xpath = "//*[@class='title text-center']")
-    public WebElement menTshirtsProductsText;
+    public WebElement manTshirtsProductsText;
 
     @FindBy(xpath="//*[@href='/products']")
     public WebElement products;
